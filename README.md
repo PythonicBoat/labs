@@ -1,4 +1,4 @@
-# Solutions to C lab (IT2005) Problems
+# Solutions to C lab (IT2005 | CS1091) Problems
 
 | Lab | Solution |
 | --- | -------- |
