@@ -13,3 +13,4 @@
 | lab 15 | [lab 15](https://github.com/PythonicBoat/c_lab/tree/main/lab15) |
 | lab 16 | [lab 16](https://github.com/PythonicBoat/c_lab/tree/main/lab16) |
 | lab 17 | [lab 17](https://github.com/PythonicBoat/c_lab/tree/main/lab17) |
+| lab 18 | [lab 18](https://github.com/PythonicBoat/c_lab/tree/main/lab18) |
