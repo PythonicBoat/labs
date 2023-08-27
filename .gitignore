@@ -1,0 +1,22 @@
+*.class
+*.exe
+*.dll
+*.so
+.vscode
+
+# vscode project files
+.vscode/
+
+# node.js
+node_modules/
+
+# build output
+dist/
+
+# misc
+.DS_Store
+.env
+
+# logs
+logs
+*.log
