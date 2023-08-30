@@ -1,6 +1,6 @@
 // WAP in java which will acccept N number of argument from commandline and display the sum
 
-public class nsum {
+public class p2_nsum {
     public static void main(String args[]) {
         String str[] = new String[args.length];
         for (int i = 0; i < args.length; i++) {

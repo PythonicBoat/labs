@@ -2,7 +2,7 @@
 
 import java.util.Scanner;
 
-public class save {
+public class p6_save {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter your first name: ");

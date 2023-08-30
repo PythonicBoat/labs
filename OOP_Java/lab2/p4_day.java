@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
-public class day {
+public class p4_day {
     public static void main(String[] args) {
         int dayOfMonth = 27; // Replace with the day number you want to check
         LocalDate date = LocalDate.now().withDayOfMonth(dayOfMonth);
