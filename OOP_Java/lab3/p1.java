@@ -1,40 +1,44 @@
-// WAP to find even and odd, total no. of even, grand total and sum of even and odd 
+// WAP to find even and odd, total no. of even and odd, grand total and sum of even and odd using InputStreamReader and Buffered Reader.
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class p1 {
     public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int totalEven = 0;
-        int totalOdd = 0;
+        int evenCount = 0;
+        int oddCount = 0;
+        int evenSum = 0;
+        int oddSum = 0;
         int grandTotal = 0;
-        int sumEven = 0;
-        int sumOdd = 0;
 
-        while (true) {
-            System.out.print("Enter an integer (0 to exit): ");
-            int num = Integer.parseInt(reader.readLine());
+        System.out.print("Enter the number of elements: ");
+        int n = Integer.parseInt(br.readLine());
 
-            if (num == 0) {
-                break;
-            }
+        int[] numbers = new int[n];
 
-            grandTotal += num;
+        System.out.println("Enter the elements:");
 
-            if (num % 2 == 0) {
-                totalEven++;
-                sumEven += num;
+        for (int i = 0; i < n; i++) {
+            numbers[i] = Integer.parseInt(br.readLine());
+            grandTotal += numbers[i];
+
+            if (numbers[i] % 2 == 0) {
+                evenCount++;
+                evenSum += numbers[i];
             } else {
-                totalOdd++;
-                sumOdd += num;
+                oddCount++;
+                oddSum += numbers[i];
             }
         }
 
-        System.out.println("Total even numbers: " + totalEven);
-        System.out.println("Total odd numbers: " + totalOdd);
+        System.out.println("Even numbers: " + evenCount);
+        System.out.println("Odd numbers: " + oddCount);
+        System.out.println("Total numbers: " + n);
         System.out.println("Grand total: " + grandTotal);
-        System.out.println("Sum of even numbers: " + sumEven);
-        System.out.println("Sum of odd numbers: " + sumOdd);
+        System.out.println("Sum of even numbers: " + evenSum);
+        System.out.println("Sum of odd numbers: " + oddSum);
     }
 }

@@ -1,32 +1,55 @@
-import java.io.*;
+// WAP in java which will accept the student RollNo, Name, marks of four subjects using InputStreamReader and BufferedReader and finally display the grade of the students.
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class p2 {
+    private static int rollNo;
+    private static String name;
+    private static int subject1, subject2, subject3, subject4;
+    private static int totalMarks;
+    private static double percentage;
+    private static String grade;
+
     public static void main(String[] args) throws IOException {
+        acceptDetails();
+        calculateGrade();
+        displayDetails();
+    }
+
+    private static void acceptDetails() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        // Accepting student details
-        System.out.print("Enter student roll no: ");
-        int rollNo = Integer.parseInt(br.readLine());
+        System.out.print("Enter RollNo: ");
+        rollNo = Integer.parseInt(br.readLine());
 
-        System.out.print("Enter student name: ");
-        String name = br.readLine();
+        System.out.print("Enter Name: ");
+        name = br.readLine();
+        
+        for (int i=0; i<4; i++) {
+            System.out.print("Enter marks of subject " + (i+1) + ": ");
+            int marks = Integer.parseInt(br.readLine());
+            switch (i) {
+                case 0:
+                    subject1 = marks;
+                    break;
+                case 1:
+                    subject2 = marks;
+                    break;
+                case 2:
+                    subject3 = marks;
+                    break;
+                case 3:
+                    subject4 = marks;
+                    break;
+            }
+        }
+    }
 
-        System.out.print("Enter marks in subject 1: ");
-        int sub1 = Integer.parseInt(br.readLine());
-
-        System.out.print("Enter marks in subject 2: ");
-        int sub2 = Integer.parseInt(br.readLine());
-
-        System.out.print("Enter marks in subject 3: ");
-        int sub3 = Integer.parseInt(br.readLine());
-
-        System.out.print("Enter marks in subject 4: ");
-        int sub4 = Integer.parseInt(br.readLine());
-
-        // Calculating total marks and grade
-        int totalMarks = sub1 + sub2 + sub3 + sub4;
-        double percentage = (double) totalMarks / 4;
-        String grade;
+    private static void calculateGrade() {
+        totalMarks = subject1 + subject2 + subject3 + subject4;
+        percentage = (double) totalMarks / 4;
 
         if (percentage >= 90) {
             grade = "O";
@@ -41,14 +64,11 @@ public class p2 {
         } else {
             grade = "D";
         }
+    }
 
-        // Displaying student details and grade
-        System.out.println("Roll No: " + rollNo);
+    private static void displayDetails() {
+        System.out.println("RollNo: " + rollNo);
         System.out.println("Name: " + name);
-        System.out.println("Marks in Subject 1: " + sub1);
-        System.out.println("Marks in Subject 2: " + sub2);
-        System.out.println("Marks in Subject 3: " + sub3);
-        System.out.println("Marks in Subject 4: " + sub4);
         System.out.println("Total Marks: " + totalMarks);
         System.out.println("Percentage: " + percentage);
         System.out.println("Grade: " + grade);
