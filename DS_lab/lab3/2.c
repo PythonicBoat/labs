@@ -1,96 +1,123 @@
 // WAP to perform addition of two given sparse matrix in 3–tuple format.
 
 #include <stdio.h>
-#include <stdlib.h>
 
-struct sparse
-{
+#define MAX_TERMS 101
+
+typedef struct {
     int row;
     int col;
-    int val;
-};
+    int value;
+} element;
 
-void add(struct sparse *s1, struct sparse *s2, struct sparse *s3)
-{
-    int i, j, k = 1;
-    if (s1[0].row == s2[0].row && s1[0].col == s2[0].col)
-    {
-        s3[0].row = s1[0].row;
-        s3[0].col = s1[0].col;
-        for (i = 0; i < s1[0].row; i++)
-        {
-            for (j = 0; j < s1[0].col; j++)
-            {
-                if (s1[k].val != 0)
-                {
-                    s3[k].row = i;
-                    s3[k].col = j;
-                    s3[k].val = s1[k].val + s2[k].val;
-                    k++;
-                }
-            }
-        }
-        s3[0].val = k - 1;
-    }
-    else
-    {
-        printf("Addition not possible");
-    }
-}
+void readMatrix(element a[]);
+void printMatrix(element a[]);
+void add(element a[], element b[], element c[]);
 
-void display(struct sparse *s)
-{
-    int i;
-    printf("\nRow\tColumn\tValue\n");
-    for (i = 0; i <= s[0].val; i++)
-    {
-        printf("%d\t%d\t%d\n", s[i].row, s[i].col, s[i].val);
-    }
-}
-
-int main()
-{
-    int i, j, k = 1;
-    struct sparse s1[20], s2[20], s3[20];
-    printf("Enter the number of rows and columns: ");
-    scanf("%d%d", &s1[0].row, &s1[0].col);
-    printf("Enter the elements of the matrix: ");
-    for (i = 0; i < s1[0].row; i++)
-    {
-        for (j = 0; j < s1[0].col; j++)
-        {
-            scanf("%d", &s1[k].val);
-            if (s1[k].val != 0)
-            {
-                s1[k].row = i;
-                s1[k].col = j;
-                k++;
-            }
-        }
-    }
-    s1[0].val = k - 1;
-    k = 1;
-    printf("Enter the elements of the matrix: ");
-    for (i = 0; i < s1[0].row; i++)
-    {
-        for (j = 0; j < s1[0].col; j++)
-        {
-            scanf("%d", &s2[k].val);
-            if (s2[k].val != 0)
-            {
-                s2[k].row = i;
-                s2[k].col = j;
-                k++;
-            }
-        }
-    }
-    s2[0].val = k - 1;
-    add(s1, s2, s3);
-    printf("\nMatrix 1:\n");
-    display(s1);
-    printf("\nMatrix 2:\n");
-    display(s2);
-    printf("\nMatrix 3:\n");
-    display(s3);
+int main() {
+    element a[MAX_TERMS], b[MAX_TERMS], c[MAX_TERMS];
+    readMatrix(a);
+    readMatrix(b);
+    add(a, b, c);
+    printf("\nMatrix A:\n");
+    printMatrix(a);
+    printf("\nMatrix B:\n");
+    printMatrix(b);
+    printf("\nMatrix C = A + B:\n");
+    printMatrix(c);
     return 0;
+}
+
+void readMatrix(element a[]) {
+    int numRows, numCols, numTerms;
+    printf("Enter the number of rows, columns, and non-zero terms: ");
+    scanf("%d%d%d", &numRows, &numCols, &numTerms);
+    a[0].row = numRows;
+    a[0].col = numCols;
+    a[0].value = numTerms;
+    for (int i = 1; i <= numTerms; i++) {
+        printf("Enter row, column, and value of term %d: ", i);
+        scanf("%d%d%d", &a[i].row, &a[i].col, &a[i].value);
+    }
+}
+
+void printMatrix(element a[]) {
+    int numRows = a[0].row;
+    int numCols = a[0].col;
+    int numTerms = a[0].value;
+    int index = 1;
+    for (int i = 0; i < numRows; i++) {
+        for (int j = 0; j < numCols; j++) {
+            if (i == a[index].row && j == a[index].col) {
+                printf("%d ", a[index].value);
+                index++;
+            } else {
+                printf("0 ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+void add(element a[], element b[], element c[]) {
+    int numRows = a[0].row;
+    int numCols = a[0].col;
+    int numTermsA = a[0].value;
+    int numTermsB = b[0].value;
+    int indexA = 1;
+    int indexB = 1;
+    int indexC = 1;
+    c[0].row = numRows;
+    c[0].col = numCols;
+    while (indexA <= numTermsA && indexB <= numTermsB) {
+        if (a[indexA].row < b[indexB].row) {
+            c[indexC].row = a[indexA].row;
+            c[indexC].col = a[indexA].col;
+            c[indexC].value = a[indexA].value;
+            indexA++;
+            indexC++;
+        } else if (a[indexA].row > b[indexB].row) {
+            c[indexC].row = b[indexB].row;
+            c[indexC].col = b[indexB].col;
+            c[indexC].value = b[indexB].value;
+            indexB++;
+            indexC++;
+        } else {
+            if (a[indexA].col < b[indexB].col) {
+                c[indexC].row = a[indexA].row;
+                c[indexC].col = a[indexA].col;
+                c[indexC].value = a[indexA].value;
+                indexA++;
+                indexC++;
+            } else if (a[indexA].col > b[indexB].col) {
+                c[indexC].row = b[indexB].row;
+                c[indexC].col = b[indexB].col;
+                c[indexC].value = b[indexB].value;
+                indexB++;
+                indexC++;
+            } else {
+                c[indexC].row = a[indexA].row;
+                c[indexC].col = a[indexA].col;
+                c[indexC].value = a[indexA].value + b[indexB].value;
+                indexA++;
+                indexB++;
+                indexC++;
+            }
+        }
+    }
+    while (indexA <= numTermsA) {
+        c[indexC].row = a[indexA].row;
+        c[indexC].col = a[indexA].col;
+        c[indexC].value = a[indexA].value;
+        indexA++;
+        indexC++;
+    }
+    while (indexB <= numTermsB) {
+        c[indexC].row = b[indexB].row;
+        c[indexC].col = b[indexB].col;
+        c[indexC].value = b[indexB].value;
+        indexB++;
+        indexC++;
+    }
+    c[0].value = indexC - 1;
 }
