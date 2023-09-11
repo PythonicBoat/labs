@@ -20,5 +20,3 @@ void create(int item) {
         temp = temp -> next;
     }
 }
-
-9

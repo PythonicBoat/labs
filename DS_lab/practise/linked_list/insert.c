@@ -20,4 +20,3 @@ int main() {
     insertAtBeginning(&head, 15);
     return 0;
 }
-
