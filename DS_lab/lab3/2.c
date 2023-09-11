@@ -1,123 +1,207 @@
 // WAP to perform addition of two given sparse matrix in 3–tuple format.
 
 #include <stdio.h>
+#include <stdlib.h>
+#define MAX 20
+void printsparse(int b[MAX][3]);
+void readsparse(int b[MAX][3]);
+void addsparse(int b1[MAX][3], int b2[MAX][3], int b3[MAX][3]);
+void main()
+{
 
-#define MAX_TERMS 101
+    int b1[MAX][3], b2[MAX][3], b3[MAX][3];
 
-typedef struct {
-    int row;
-    int col;
-    int value;
-} element;
+    readsparse(b1);
 
-void readMatrix(element a[]);
-void printMatrix(element a[]);
-void add(element a[], element b[], element c[]);
+    readsparse(b2);
 
-int main() {
-    element a[MAX_TERMS], b[MAX_TERMS], c[MAX_TERMS];
-    readMatrix(a);
-    readMatrix(b);
-    add(a, b, c);
-    printf("\nMatrix A:\n");
-    printMatrix(a);
-    printf("\nMatrix B:\n");
-    printMatrix(b);
-    printf("\nMatrix C = A + B:\n");
-    printMatrix(c);
-    return 0;
+    addsparse(b1, b2, b3);
+
+    printsparse(b3);
 }
+void readsparse(int b[MAX][3])
+{
 
-void readMatrix(element a[]) {
-    int numRows, numCols, numTerms;
-    printf("Enter the number of rows, columns, and non-zero terms: ");
-    scanf("%d%d%d", &numRows, &numCols, &numTerms);
-    a[0].row = numRows;
-    a[0].col = numCols;
-    a[0].value = numTerms;
-    for (int i = 1; i <= numTerms; i++) {
-        printf("Enter row, column, and value of term %d: ", i);
-        scanf("%d%d%d", &a[i].row, &a[i].col, &a[i].value);
+    int i, t, m, n;
+
+    printf("Enter no.of rows and column:");
+
+    scanf("% d % d", &m, &n);
+    printf("No.of non - zero triples
+           :”);
+
+    scanf(“% d”, &t);
+
+    b[0][0] = m;
+
+    b[0][1] = n;
+
+    b[0][2] = t;
+
+    for (i = 1; i <= t; i++)
+    {
+
+        printf(“Enter the triples(row, column, value)
+               :”);
+
+        scanf(“% d % d % d”, &b[i][0], &b[i][1], &b[i][2]);
     }
 }
+void addsparse(int b1[MAX][3], int b2[MAX][3], int b3[MAX][3])
+{
 
-void printMatrix(element a[]) {
-    int numRows = a[0].row;
-    int numCols = a[0].col;
-    int numTerms = a[0].value;
-    int index = 1;
-    for (int i = 0; i < numRows; i++) {
-        for (int j = 0; j < numCols; j++) {
-            if (i == a[index].row && j == a[index].col) {
-                printf("%d ", a[index].value);
-                index++;
-            } else {
-                printf("0 ");
-            }
+    int t1, t2, i, j, k;
+
+    if (b1[0][0] != b2[0][0] || b1[0][1] != b2[0][1])
+    {
+
+        printf(“nYou have entered invalid matrix !!Size must be
+                equal”);
+
+        exit(0);
+    }
+
+    t1 = b1[0][2];
+
+    t2 = b2[0][2];
+
+    i = j = k = 0;
+
+    b3[0][0] = b1[0][0];
+
+    b3[0][1] = b1[0][1];
+
+    while (i <= t1 && j <= t2)
+    {
+
+        if (b1[i][0] < b2[j][0])
+        // row numbers are not equal
+
+        {
+
+            b3[k][0] = b1[i][0];
+
+            b3[k][1] = b1[i][1];
+
+            b3[k][2] = b1[i][2];
+
+            k++;
+
+            i++;
         }
-        printf("\n");
-    }
-}
 
-void add(element a[], element b[], element c[]) {
-    int numRows = a[0].row;
-    int numCols = a[0].col;
-    int numTermsA = a[0].value;
-    int numTermsB = b[0].value;
-    int indexA = 1;
-    int indexB = 1;
-    int indexC = 1;
-    c[0].row = numRows;
-    c[0].col = numCols;
-    while (indexA <= numTermsA && indexB <= numTermsB) {
-        if (a[indexA].row < b[indexB].row) {
-            c[indexC].row = a[indexA].row;
-            c[indexC].col = a[indexA].col;
-            c[indexC].value = a[indexA].value;
-            indexA++;
-            indexC++;
-        } else if (a[indexA].row > b[indexB].row) {
-            c[indexC].row = b[indexB].row;
-            c[indexC].col = b[indexB].col;
-            c[indexC].value = b[indexB].value;
-            indexB++;
-            indexC++;
-        } else {
-            if (a[indexA].col < b[indexB].col) {
-                c[indexC].row = a[indexA].row;
-                c[indexC].col = a[indexA].col;
-                c[indexC].value = a[indexA].value;
-                indexA++;
-                indexC++;
-            } else if (a[indexA].col > b[indexB].col) {
-                c[indexC].row = b[indexB].row;
-                c[indexC].col = b[indexB].col;
-                c[indexC].value = b[indexB].value;
-                indexB++;
-                indexC++;
-            } else {
-                c[indexC].row = a[indexA].row;
-                c[indexC].col = a[indexA].col;
-                c[indexC].value = a[indexA].value + b[indexB].value;
-                indexA++;
-                indexB++;
-                indexC++;
-            }
+        else if (b2[j][0] < b1[i][0])
+        // row numbers are not equal
+
+        {
+
+            b3[k][0] = b2[j][0];
+
+            b3[k][1] = b2[j][1];
+
+            b3[k][2] = b2[j][2];
+
+            k++;
+
+            j++;
+        }
+
+        else if (b1[i][1] < b2[j][1])
+        // row numbers are equal, compare column
+
+        {
+
+            b3[k][0] = b1[i][0];
+
+            b3[k][1] = b1[i][1];
+
+            b3[k][2] = b1[i][2];
+
+            k++;
+
+            i++;
+        }
+
+        else if (b2[j][1] < b1[i][1])
+        // row numbers are equal, compare column
+
+        {
+
+            b3[k][0] = b2[j][0];
+
+            b3[k][1] = b2[j][1];
+
+            b3[k][2] = b2[j][2];
+
+            k++;
+
+            j++;
+        }
+
+        else
+
+        {
+
+            b3[k][0] = b1[i][0]; // row and
+            column numbers are equal
+
+                b3[k][1] = b1[i][1];
+
+            b3[k][2] = b1[i][2] + b2[j][2];
+
+            k++;
+
+            i++;
+
+            j++;
         }
     }
-    while (indexA <= numTermsA) {
-        c[indexC].row = a[indexA].row;
-        c[indexC].col = a[indexA].col;
-        c[indexC].value = a[indexA].value;
-        indexA++;
-        indexC++;
+
+    while (i <= t1) // copy
+        remaining terms from b1
+        {
+
+            b3[k][0] = b1[i][0];
+
+            b3[k][1] = b1[i][1];
+
+            b3[k][2] = b1[i][2];
+
+            i++;
+
+            k++;
+        }
+
+    while (j <= t2) // copy
+        remaining terms from b2
+        {
+
+            b3[k][0] = b2[j][0];
+
+            b3[k][1] = b1[j][1];
+
+            b3[k][2] = b1[j][2];
+
+            j++;
+
+            k++;
+        }
+
+    b3[0][2] = k - 1; // set number
+    of terms in b3
+}
+void printsparse(int b[MAX][3])
+{
+
+    int i, t;
+
+    t = b[0][2];
+
+    printf(“nrowtcolumntvalue”);
+
+    for (i = 1; i <= t; i++)
+    {
+
+        printf(“n % dt % dt % d”, b[i][0], b[i][1], b[i][2]);
     }
-    while (indexB <= numTermsB) {
-        c[indexC].row = b[indexB].row;
-        c[indexC].col = b[indexB].col;
-        c[indexC].value = b[indexB].value;
-        indexB++;
-        indexC++;
-    }
-    c[0].value = indexC - 1;
 }
