@@ -29,6 +29,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+<<<<<<< HEAD
 struct node
 {
     int data;
@@ -265,3 +266,147 @@ int main()
     } while (choice != 8);
 }
 
+=======
+struct node {
+  int data;
+  struct node *next;
+};
+
+struct node *head = NULL;
+
+void createList(int n) {
+  int i, data;
+  struct node *newNode;
+
+  for (i = 0; i < n; i++) {
+    newNode = (struct node *)malloc(sizeof(struct node));
+    printf("Enter the data for node %d: ", i + 1);
+    scanf("%d", &data);
+    newNode->data = data;
+    newNode->next = NULL;
+
+    if (head == NULL) {
+      head = newNode;
+    } else {
+      struct node *temp = head;
+      while (temp->next != NULL) {
+        temp = temp->next;
+      }
+      temp->next = newNode;
+    }
+  }
+}
+
+void insertNode(int data, int position) {
+  struct node *newNode = (struct node *)malloc(sizeof(struct node));
+  newNode->data = data;
+  newNode->next = NULL;
+
+  if (position == 1) {
+    newNode->next = head;
+    head = newNode;
+  } else {
+    struct node *temp = head;
+    int i = 1;
+    while (i < position - 1 && temp != NULL) {
+      temp = temp->next;
+      i++;
+    }
+    if (temp != NULL) {
+      newNode->next = temp->next;
+      temp->next = newNode;
+    }
+  }
+}
+
+void deleteNode(int position) {
+  if (head == NULL) {
+    printf("List is empty.\n");
+    return;
+  }
+
+  if (position == 1) {
+    head = head->next;
+  } else {
+    struct node *temp = head;
+    int i = 1;
+    while (i < position - 1 && temp != NULL) {
+      temp = temp->next;
+      i++;
+    }
+    if (temp != NULL && temp->next != NULL) {
+      temp->next = temp->next->next;
+    }
+  }
+}
+
+void traverseList() {
+  if (head == NULL) {
+    printf("List is empty.\n");
+    return;
+  }
+
+  struct node *temp = head;
+  printf("The list is:\n");
+  while (temp != NULL) {
+    printf("%d -> ", temp->data);
+    temp = temp->next;
+  }
+  printf("\n");
+}
+
+int countNodes() {
+  int count = 0;
+  struct node *temp = head;
+  while (temp != NULL) {
+    count++;
+    temp = temp->next;
+  }
+  return count;
+}
+
+int searchNode(int data) {
+  struct node *temp = head;
+  int i = 1;
+  while (temp != NULL) {
+    if (temp->data == data) {
+      return i;
+    }
+    temp = temp->next;
+    i++;
+  }
+  return -1;
+}
+
+void sortList() {
+  struct node *current, *next;
+  int temp;
+
+  current = head;
+  while (current != NULL) {
+    next = current->next;
+    while (next != NULL) {
+      if (current->data > next->data) {
+        temp = current->data;
+        current->data = next->data;
+        next->data = temp;
+      }
+      next = next->next;
+    }
+    current = current->next;
+  }
+}
+
+void reverseList() {
+  struct node *prev, *curr, *next;
+
+  prev = NULL;
+  curr = head;
+  next = curr->next;
+
+  while (curr != NULL) {
+    curr->next = prev;
+    prev = curr;
+    curr = next;
+    if (next != NULL) {
+>>>>>>> 51df39fd13dfd61a97785be07a1b0befbb1a0123
