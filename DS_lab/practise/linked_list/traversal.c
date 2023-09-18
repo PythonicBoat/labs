@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct node
+struct node // element of linked list
 {
     int data;
     struct node *next;
 };
 
-struct node *start = NULL;
+struct node *start = NULL; // starting location of linked list
 
 void insert(int data, int pos)
 {

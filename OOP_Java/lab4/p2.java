@@ -26,7 +26,7 @@ class Customer {
 
 class p2 {
     public static void main(String[] args) {
-        Customer[] customers = new Customer[3];
+        Customer[] customers = new Customer[args.length];
 
         for (int i = 0; i < customers.length; i++) {
             customers[i] = new Customer();
