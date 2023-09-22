@@ -1,55 +1,50 @@
 // Create an Abstract class shape with an abstract method calcArea(). Derive two classes Circle and Rectangle and override the display area methods. Create another class Demo which will create the object of circle and rectangle and call the calcArea() methods.
 
-import java.util.Scanner;
-
+// Abstract class Shape
 abstract class Shape {
-    abstract void calcArea();
+    abstract double calcArea();
 }
 
+// Derived class Circle
 class Circle extends Shape {
-    double radius;
+    private double radius;
 
-    Circle(double radius) {
+    public Circle(double radius) {
         this.radius = radius;
     }
 
-    void calcArea() {
-        System.out.println("Area of circle: " + Math.PI * radius * radius);
+    @Override
+    double calcArea() {
+        return Math.PI * Math.pow(radius, 2);
     }
 }
 
+// Derived class Rectangle
 class Rectangle extends Shape {
-    double length, breadth;
+    private double length;
+    private double width;
 
-    Rectangle(double length, double breadth) {
+    public Rectangle(double length, double width) {
         this.length = length;
-        this.breadth = breadth;
+        this.width = width;
     }
 
-    void calcArea() {
-        System.out.println("Area of rectangle: " + length * breadth);
+    @Override
+    double calcArea() {
+        return length * width;
     }
 }
 
+// Class Demo
 class Demo {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter radius of circle: ");
-        double radius = sc.nextDouble();
-        System.out.print("Enter length of rectangle: ");
-        double length = sc.nextDouble();
-        System.out.print("Enter breadth of rectangle: ");
-        double breadth = sc.nextDouble();
-        Circle myCircle = new Circle(radius);
-        Rectangle myRectangle = new Rectangle(length, breadth);
+        Circle circle = new Circle(5);  // Creating a circle object with radius 5
+        Rectangle rectangle = new Rectangle(4, 6);  // Creating a rectangle object with length 4 and width 6
 
-        myCircle.calcArea();
-        myRectangle.calcArea();
-    }
-}
+        double circleArea = circle.calcArea();
+        double rectangleArea = rectangle.calcArea();
 
-public class p5 {
-    public static void main(String[] args) {
-        Demo.main(args);
+        System.out.println("Area of the circle: " + circleArea);
+        System.out.println("Area of the rectangle: " + rectangleArea);
     }
 }

@@ -7,7 +7,7 @@ class Person {
 		System.out.println("Person class Constructor");
 	}
 }
- 
+
 //subclass extends superclass
 class Student extends Person {
 	Student()

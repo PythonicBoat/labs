@@ -1,54 +1,53 @@
 // Do program 5 but in demo class create the reference object of shape class, initialize that object with circle and rectangle class and call the methods
 
-import java.util.Scanner;
-
+// Abstract class Shape
 abstract class Shape {
     abstract double calcArea();
 }
 
+// Derived class Circle
 class Circle extends Shape {
-    double radius;
+    private double radius;
 
-    Circle(double radius) {
+    public Circle(double radius) {
         this.radius = radius;
     }
 
+    @Override
     double calcArea() {
-        return Math.PI * radius * radius;
+        return Math.PI * Math.pow(radius, 2);
     }
 }
 
+// Derived class Rectangle
 class Rectangle extends Shape {
-    double length;
-    double width;
+    private double length;
+    private double width;
 
-    Rectangle(double length, double width) {
+    public Rectangle(double length, double width) {
         this.length = length;
         this.width = width;
     }
 
+    @Override
     double calcArea() {
         return length * width;
     }
 }
 
-class Demo {
+// Class Demo
+class p6 {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter radius of circle: ");
-        double radius = sc.nextDouble();
-        System.out.print("Enter length of rectangle: ");
-        double length = sc.nextDouble();
-        System.out.print("Enter width of rectangle: ");
-        double width = sc.nextDouble();
+        Shape shape; // Reference variable of type Shape
 
-        Circle myCircle = new Circle(radius);
-        Rectangle myRectangle = new Rectangle(length, width);
-    
-        Shape myShape = myCircle;
-        System.out.println("Area of circle: " + myShape.calcArea());
+        // Creating a circle object with radius 5
+        shape = new Circle(5);
+        double circleArea = shape.calcArea();
+        System.out.println("Area of the circle: " + circleArea);
 
-        myShape = myRectangle;
-        System.out.println("Area of rectangle: " + myShape.calcArea());
+        // Creating a rectangle object with length 4 and width 6
+        shape = new Rectangle(4, 6);
+        double rectangleArea = shape.calcArea();
+        System.out.println("Area of the rectangle: " + rectangleArea);
     }
 }
