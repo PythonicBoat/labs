@@ -1,11 +1,14 @@
 // Do program 5 but in demo class create the reference object of shape class, initialize that object with circle and rectangle class and call the methods
 
 // Abstract class Shape
+
 abstract class Shape {
     abstract double calcArea();
 }
 
+
 // Derived class Circle
+
 class Circle extends Shape {
     private double radius;
 
@@ -20,6 +23,7 @@ class Circle extends Shape {
 }
 
 // Derived class Rectangle
+
 class Rectangle extends Shape {
     private double length;
     private double width;
@@ -35,19 +39,17 @@ class Rectangle extends Shape {
     }
 }
 
-// Class Demo
-class p6 {
+// class demo
+
+class Demo {
     public static void main(String[] args) {
-        Shape shape; // Reference variable of type Shape
+        Shape circle = new Circle(5);  // Creating a circle object with radius 5
+        Shape rectangle = new Rectangle(4, 6);  // Creating a rectangle object with length 4 and width 6
 
-        // Creating a circle object with radius 5
-        shape = new Circle(5);
-        double circleArea = shape.calcArea();
+        double circleArea = circle.calcArea();
+        double rectangleArea = rectangle.calcArea();
+
         System.out.println("Area of the circle: " + circleArea);
-
-        // Creating a rectangle object with length 4 and width 6
-        shape = new Rectangle(4, 6);
-        double rectangleArea = shape.calcArea();
         System.out.println("Area of the rectangle: " + rectangleArea);
     }
 }
