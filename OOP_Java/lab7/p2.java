@@ -18,14 +18,13 @@ class Student implements INTER1 {
 
 public class p2 {
     public static void main(String[] args) {
-        // Create an object of the class and call both the methods.
-        Student student = new Student();
-        student.disp();
-        student.nonIFaceMethod();
+        Student studentObj = new Student();
+        studentObj.disp();
+        studentObj.nonIFaceMethod();
 
         INTER1 interfaceRef = new Student();
-        interfaceRef.disp(); // This works because it's defined in the interface.
+        interfaceRef.disp();
 
-        System.out.println("Error: nonIFaceMethod() cannot be called through the interface reference.");
+        // This will result in a compile-time error because the reference type is of INTER-1 which doesn't have the nonIFaceMethod() method.
     }
 }

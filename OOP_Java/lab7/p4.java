@@ -1,8 +1,8 @@
-import com.p5;
+import com.displayclass;
 
 public class p4 {
     public static void main(String[] args) {
-        p4 obj = new p4();
-        obj.display();
+        displayclass displayObj = new displayclass();
+        displayObj.display();
     }
 }
