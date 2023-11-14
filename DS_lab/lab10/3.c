@@ -1,9 +1,8 @@
-// In addition to Q7.1, perform deletion of an element in the BST using function.
+// In addition to Q10.1, perform deletion of an element in the BST using function.
 
 #include <stdio.h>
 #include <stdlib.h>
 
-// Definition of a node in the BST
 struct Node {
     int data;
     struct Node *left, *right;
@@ -65,7 +64,6 @@ void inorderTraversal(struct Node* root) {
 }
 
 int main() {
-    // Example usage
     struct Node* root = createNode(50);
     root->left = createNode(30);
     root->right = createNode(70);
