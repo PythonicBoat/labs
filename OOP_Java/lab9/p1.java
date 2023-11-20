@@ -1,7 +1,5 @@
 // 1.  Prog on userdefined exception - like accept your marks and check whether marks is < 0 or  >100, if so throw one userdefined exception otherwise show the marks
 
-package lab9;
-
 import java.util.Scanner;
 
 class InvalidMarksException extends Exception {

@@ -1,16 +1,23 @@
-// 3.  All constructor and methods of StringBuffer Classs
-
-package lab9;
+import java.util.Scanner;
 
 public class p3 {
     public static void main(String[] args) {
-        // Constructors
-        StringBuffer sb1 = new StringBuffer(); // empty constructor
-        StringBuffer sb2 = new StringBuffer("Hello"); // constructor with string
-        StringBuffer sb3 = new StringBuffer(10); // constructor with capacity
+        Scanner scanner = new Scanner(System.in);
+
+        // User input for sb1
+        System.out.println("Enter a string for sb1:");
+        String input1 = scanner.nextLine();
+        StringBuffer sb1 = new StringBuffer(input1); // constructor with user input
+
+        // User input for sb2
+        System.out.println("Enter another string for sb2:");
+        String input2 = scanner.nextLine();
+        StringBuffer sb2 = new StringBuffer(input2); // constructor with user input
+
+        StringBuffer sb3 = new StringBuffer(10); // empty constructor
 
         // Methods
-        sb1.append("World"); // append method
+        sb1.append(" World"); // append method
         sb2.insert(0, "World "); // insert method
         sb3.append("Hello").append(" World"); // chaining of append method
 
@@ -42,6 +49,22 @@ public class p3 {
         sb1.setLength(3); // setLength method
         System.out.println("sb1 after setLength(3): " + sb1);
 
+        // Additional methods
+        String substring = sb2.substring(1, 3); // substring method
+        System.out.println("Substring of sb2 (1 to 3): " + substring);
+
+        int indexOfChar = sb3.indexOf("W"); // indexOf method
+        System.out.println("Index of 'W' in sb3: " + indexOfChar);
+
+        int lastIndexOfChar = sb3.lastIndexOf("W"); // lastIndexOf method
+        System.out.println("Last index of 'W' in sb3: " + lastIndexOfChar);
+
+        sb2.deleteCharAt(2); // deleteCharAt method
+        System.out.println("sb2 after deleting character at index 2: " + sb2);
+
+        sb1.setCharAt(1, 'X'); // setCharAt method
+        System.out.println("sb1 after setting character at index 1 to 'X': " + sb1);
+
         // Custom methods
         insertAt(sb1, 1, "InsertAt"); // insertAt method
         System.out.println("sb1 after insertAt(1, \"InsertAt\"): " + sb1);
@@ -54,6 +77,12 @@ public class p3 {
 
         appendStringBuffer(sb1, " Appended"); // appendStringBuffer method
         System.out.println("sb1 after appendStringBuffer: " + sb1);
+
+        // Custom method
+        deleteRange(sb3, 2, 3); // deleteRange method
+        System.out.println("sb3 after deleting range (2 to 5): " + sb3);
+
+        scanner.close();
     }
 
     // Custom method to insert at a specific index
@@ -75,5 +104,10 @@ public class p3 {
     // Custom method to append to a StringBuffer
     private static void appendStringBuffer(StringBuffer stringBuffer, String text) {
         stringBuffer.append(text);
+    }
+
+    // Custom method to delete a range of characters in StringBuffer
+    private static void deleteRange(StringBuffer stringBuffer, int start, int end) {
+        stringBuffer.delete(start, end);
     }
 }

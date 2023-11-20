@@ -1,13 +1,16 @@
-// 2. All constructor and methods of String class
-
-package lab9;
-
 import java.util.Scanner;
 
 public class p2 {
     // Constructor
     public p2(String str) {
         System.out.println("Constructor called with string: " + str);
+        // Using toCharArray() in the constructor
+        char[] charArray = str.toCharArray();
+        System.out.print("Character array from the constructor: ");
+        for (char ch : charArray) {
+            System.out.print(ch + " ");
+        }
+        System.out.println("\n");
     }
 
     public static void main(String[] args) {
@@ -39,7 +42,7 @@ public class p2 {
 		System.out.println("Does first string equal second string? (Ignore Case) " + str1.equalsIgnoreCase(str2));
 
         // Replace
-        System.out.println("Replace 'a' with 'x' in the first string: " + str1.replace('a', 'x'));
+        System.out.println("Replace 'a' with 'x' in the first string: " + str1.replace('e', 'o'));
 
 		// Substring
         System.out.println("Substring from index 1 to 5 in the first string: " + str1.substring(1, 5));
@@ -63,9 +66,22 @@ public class p2 {
 		System.out.println("Trimmed String 1: " + str1.trim());
 		System.out.println("Trimmed String 2: " + str2.trim());
 
+        // toCharArray
+        char[] charArray1 = str1.toCharArray();
+        char[] charArray2 = str2.toCharArray();
+        System.out.print("Character array from the first string: ");
+        for (char ch : charArray1) {
+            System.out.print(ch + " ");
+        }
+        System.out.println("\nCharacter array from the second string: ");
+        for (char ch : charArray2) {
+            System.out.print(ch + " ");
+        }
+        System.out.println("\n");
+
         // Using the constructor
         p2 obj = new p2("Hello, this is a sample string for the constructor.");
 
         sc.close();
    }
-}
+} //immutable
