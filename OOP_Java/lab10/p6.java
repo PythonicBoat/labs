@@ -5,7 +5,7 @@ import java.io.*;
 public class p6 {
     public static void main(String[] args) {
         // Specify the file path
-        String filePath = "p1.txt";
+        String filePath = "cap.txt";
 
         try {
             // Read the content from the file

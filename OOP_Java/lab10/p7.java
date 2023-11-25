@@ -5,8 +5,8 @@ import java.io.*;
 
 public class p7 {
     public static void main(String[] args) {
-        String filePath1 = "p1.txt";
-        String filePath2 = "p2.txt";
+        String filePath1 = "cap.txt";
+        String filePath2 = "eq.txt";
 
         try {
             DataInputStream dis1 = new DataInputStream(new FileInputStream(filePath1));

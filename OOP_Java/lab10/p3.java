@@ -6,7 +6,7 @@ import java.io.IOException;
 public class p3 {
     public static void main(String[] args) {
         // Define the file name
-        String fileName = "randomAccessFile.dat";
+        String fileName = "p1.txt";
 
         try {
             // Open the RandomAccess file with read-write permissions
