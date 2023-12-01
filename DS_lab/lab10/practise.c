@@ -38,8 +38,14 @@ struct Stack* createStack(struct Node* data) {
     return stack;
 }
 
-void push(struct Stack** top, struct Node* data) {
-    struct Stack* stack = createStack(data);
+// void push(struct Stack** top, struct Node* data) {
+//     struct Stack* stack = createStack(data);
+//     stack->next = *top;
+//     *top = stack;
+// }
+
+struct Node* push(struct Stack** top) {
+    struct Stack* stack = createStack((*top)->data);
     stack->next = *top;
     *top = stack;
 }
