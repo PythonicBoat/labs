@@ -8,6 +8,40 @@
 // Both numbers are same
 
 #include <stdio.h>
+
+struct {
+    int a;
+    int b;
+} numbers;
+
+void compare(int *a,int  *b) {
+    if (*a > *b) {
+        printf("%d is greater than %d", *a, *b);
+    } else if (*a < *b) {
+        printf("%d is smaller than %d", *a, *b);
+    } else {
+        printf("Both numbers are same");
+    }
+}
+
+void main() {
+    printf("Enter two numbers: ");
+    int a, b;
+    scanf("%d %d", &a, &b);
+    compare(&a, &b);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 void compare(int *a, int *b) {
     if (*a > *b) {
         printf("%d is greater than %d", *a, *b);
