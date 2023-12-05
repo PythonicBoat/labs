@@ -1,90 +1,94 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+#include <string.h>
+#include <ctype.h>
 
-// Define a structure for the expression tree node
-struct TreeNode {
+struct Node {
     char data;
-    struct TreeNode* left;
-    struct TreeNode* right;
+    struct Node* left;
+    struct Node* right;
 };
 
-// Function prototypes
-bool isOperator(char ch);
-bool isOperand(char ch);
-struct TreeNode* createNode(char data);
-struct TreeNode* buildExpressionTree(char prefix[], int* index);
-void prefixToPostfix(struct TreeNode* root, char postfix[], int* index);
+struct Stack {
+    int top;
+    unsigned capacity;
+    struct Node** arr;
+};
+
+struct Node* createNode(char data) {
+    struct Node* n = (struct Node*)malloc(sizeof(struct Node));
+    n->data = data;
+    n->left = n->right = NULL;
+    return n;
+}
+
+struct Stack* createStack(unsigned capacity) {
+    struct Stack* s = (struct Stack*)malloc(sizeof(struct Stack));
+    s->top = -1;
+    s->capacity = capacity;
+    s->arr = (struct Node**)malloc(s->capacity * sizeof(struct Node*));
+    return s;
+}
+
+int isEmpty(struct Stack* s) {
+    return s->top == -1;
+}
+
+void push(struct Stack* s, struct Node* item) {
+    if (s->top == s->capacity - 1) {
+        printf("Stack Overflow\n");
+        return;
+    }
+    s->arr[++s->top] = item;
+}
+
+struct Node* pop(struct Stack* s) {
+    if (isEmpty(s)) {
+        printf("Stack Underflow\n");
+        exit(EXIT_FAILURE);
+    }
+    return s->arr[s->top--];
+}
+
+struct Node* buildExprTree(char prefix[]) {
+    struct Stack* s = createStack(strlen(prefix));
+    
+    for (int i = strlen(prefix) - 1; i >= 0; i--) {
+        char sym = prefix[i];
+
+        if (isalnum(sym)) {
+            struct Node* n = createNode(sym);
+            push(s, n);
+        } else {
+            struct Node* op1 = pop(s);
+            struct Node* op2 = pop(s);
+
+            struct Node* n = createNode(sym);
+            n->left = op1;
+            n->right = op2;
+            push(s, n);
+        }
+    }
+    return pop(s);
+}
+
+void postfixTraversal(struct Node* root) {
+    if (root != NULL) {
+        postfixTraversal(root->left);
+        postfixTraversal(root->right);
+        printf("%c", root->data);
+    }
+}
 
 int main() {
-    char prefix[100];
-    char postfix[100];
-    struct TreeNode* root = NULL;
-
-    // Input the prefix expression
+    char prefix[50];
     printf("Enter the prefix expression: ");
     scanf("%s", prefix);
 
-    int index = 0;
+    struct Node* root = buildExprTree(prefix);
 
-    // Build expression tree from prefix expression
-    root = buildExpressionTree(prefix, &index);
-
-    // Convert expression tree to postfix expression
-    index = 0;
-    prefixToPostfix(root, postfix, &index);
-
-    // Output the postfix expression
-    printf("Postfix expression: %s\n", postfix);
+    printf("\nPostfix Expression: ");
+    postfixTraversal(root);
 
     return 0;
-}
-
-// Function to check if a character is an operator
-bool isOperator(char ch) {
-    return (ch == '+' || ch == '-' || ch == '*' || ch == '/');
-}
-
-// Function to check if a character is an operand
-bool isOperand(char ch) {
-    return (ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
-}
-
-// Function to create a new expression tree node
-struct TreeNode* createNode(char data) {
-    struct TreeNode* newNode = (struct TreeNode*)malloc(sizeof(struct TreeNode));
-    newNode->data = data;
-    newNode->left = newNode->right = NULL;
-    return newNode;
-}
-
-// Function to build an expression tree from prefix expression
-struct TreeNode* buildExpressionTree(char prefix[], int* index) {
-    if (prefix[*index] == '\0') {
-        return NULL;
-    }
-
-    struct TreeNode* node = createNode(prefix[(*index)++]);
-
-    if (isOperator(node->data)) {
-        // Recursively build left and right subtrees
-        node->left = buildExpressionTree(prefix, index);
-        node->right = buildExpressionTree(prefix, index);
-    }
-
-    return node;
-}
-
-// Function to convert expression tree to postfix expression
-void prefixToPostfix(struct TreeNode* root, char postfix[], int* index) {
-    if (root != NULL) {
-        // Visit the root (append the data to postfix expression)
-        postfix[(*index)++] = root->data;
-
-        // Traverse the left subtree
-        prefixToPostfix(root->left, postfix, index);
-
-        // Traverse the right subtree
-        prefixToPostfix(root->right, postfix, index);
-    }
 }
