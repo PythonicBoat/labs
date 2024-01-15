@@ -8,7 +8,8 @@ struct Node {
     struct Node *left, *right;
 };
 
-// Function to create a new BST node
+
+
 struct Node* createNode(int value) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->data = value;
@@ -16,19 +17,18 @@ struct Node* createNode(int value) {
     return newNode;
 }
 
-// Function to perform deletion of a node in the BST
+
+
+
 struct Node* deleteNode(struct Node* root, int key) {
     if (root == NULL) {
-        return root; // Base case: If the tree is empty
+        return root; 
     }
-
-    // Recur down the tree
     if (key < root->data) {
         root->left = deleteNode(root->left, key);
     } else if (key > root->data) {
         root->right = deleteNode(root->right, key);
     } else {
-        // Node with only one child or no child
         if (root->left == NULL) {
             struct Node* temp = root->right;
             free(root);
@@ -38,21 +38,17 @@ struct Node* deleteNode(struct Node* root, int key) {
             free(root);
             return temp;
         }
-
-        // Node with two children: Get the inorder successor (smallest in the right subtree)
         struct Node* temp = root->right;
         while (temp->left != NULL) {
             temp = temp->left;
         }
-
-        // Copy the inorder successor's content to this node
         root->data = temp->data;
-
-        // Delete the inorder successor
         root->right = deleteNode(root->right, temp->data);
     }
     return root;
 }
+
+
 
 // Function to perform inorder traversal of the BST
 void inorderTraversal(struct Node* root) {
