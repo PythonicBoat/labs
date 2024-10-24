@@ -7,7 +7,7 @@ int main() {
     int *arr;
     int *countArr;
 
-    file = fopen("data.txt", "r");
+    file = fopen("txta.txt", "r");
     if (file == NULL) {
         printf("Error opening file\n");
         return 1;
