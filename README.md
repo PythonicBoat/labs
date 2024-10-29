@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-# Solutions to C (IT2005), OOP (IT29004) and DS (CS29001) labs Problems
+# Solutions Index
 =======
 # Lab Work
 
@@ -8,4 +7,4 @@
 - <kbd> <br> [OOP (IT29004)](https://github.com/PythonicBoat/labs/tree/main/OOP_Java) <br> </kbd>
 - <kbd> <br> [OS (CS2002)](https://github.com/PythonicBoat/labs/tree/main/OS_lab) <br> </kbd>
 - <kbd> <br> [DBMS (CS29006)](https://github.com/PythonicBoat/labs/tree/main/DBMS_lab) <br> </kbd>
->>>>>>> 7d40a3b0111da1fa47174c3757fca4f627cc8299
+
