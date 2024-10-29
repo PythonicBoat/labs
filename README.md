@@ -1,6 +1,4 @@
 # Solutions Index
-=======
-# Lab Work
 
 - <kbd> <br> [C (IT2005)](https://github.com/PythonicBoat/labs/tree/main/Intro_to_c) <br> </kbd>
 - <kbd> <br> [DS (CS29001)](https://github.com/PythonicBoat/labs/tree/main/DS_lab) <br> </kbd>
