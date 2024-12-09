@@ -1,4 +1,4 @@
-// Round Robin scheduling with Priority algorithm
+// Priority algorithm
 #include <stdio.h>
 
 // calculate waiting time
