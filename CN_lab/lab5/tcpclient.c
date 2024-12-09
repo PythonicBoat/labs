@@ -1,48 +1,31 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
+#include<stdio.h>
+#include<sys/types.h>
+#include<sys/socket.h>
+#include<netinet/in.h>
+#include<arpa/inet.h>
+#include<fcntl.h>
+#include<string.h>
+int main()
+{
+int i,sockfd;
+char buf[100],buf1[100];
+struct sockaddr_in sa;
 
-int main() {
-    int sockfd;
-    struct sockaddr_in server_addr;
-    char send_buffer[1024], recv_buffer[1024];
-    int bytes_sent, bytes_received;
+sockfd=socket(AF_INET,SOCK_STREAM,0);
 
-    // Create socket
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0) {
-        perror("Socket creation failed");
-        exit(EXIT_FAILURE);
-    }
+sa.sin_family=AF_INET;
+sa.sin_addr.s_addr=inet_addr("127.0.0.1");//loop back ip address
+sa.sin_port=htons(6034);
 
-    server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(8080); 
-    server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+i=connect(sockfd,(struct sockaddr *)&sa,sizeof(sa));
 
-    if (connect(sockfd, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
-        perror("Connection to server failed");
-        close(sockfd);
-        exit(EXIT_FAILURE);
-    }
+printf("Enter a message\t");
+gets(buf);
+send(sockfd,buf,strlen(buf),0);
 
-    strcpy(send_buffer, "Hello, Server!");
-    bytes_sent = send(sockfd, send_buffer, strlen(send_buffer), 0);
-    if (bytes_sent < 0) {
-        perror("Send failed");
-        close(sockfd);
-        exit(EXIT_FAILURE);
-    }
+int k=recv(sockfd,buf1,100,0);
+buf1[k]='\0';
+printf("%s\n",buf1);
 
-    bytes_received = recv(sockfd, recv_buffer, sizeof(recv_buffer) - 1, 0);
-    if (bytes_received < 0) {
-        perror("Receive failed");
-        close(sockfd);
-        exit(EXIT_FAILURE);
-    }
-    recv_buffer[bytes_received] = '\0';
-    printf("Server: %s\n", recv_buffer);
-    close(sockfd);
-    return 0;
+close(sockfd);
 }

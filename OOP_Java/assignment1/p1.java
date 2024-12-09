@@ -13,7 +13,7 @@ public class p1 {
                 for (int i = p * p; i <= n; i += p) {
                     prime[i] = false;
                 }
-            }
+            }   
         }
         for (int i = 2; i <= n; i++) {
             if (prime[i]) {

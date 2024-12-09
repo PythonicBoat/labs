@@ -1,64 +1,38 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
+#include<stdio.h>
+#include<sys/types.h>
+#include<sys/socket.h>
+#include<netinet/in.h>
+#include<arpa/inet.h>
+#include<fcntl.h>
+#include<string.h>
+int main()
+{
+int sockfd,fd1,length,i;
+char buf[100],buf1[100];
+struct sockaddr_in sa,ca;
 
-int main() {
-    int server_fd, client_fd;
-    struct sockaddr_in server_addr, client_addr;
-    socklen_t client_addr_len = sizeof(client_addr);
-    char recv_buffer[1024], send_buffer[1024];
-    int bytes_received, bytes_sent;
+sockfd=socket(AF_INET,SOCK_STREAM,0);
 
-    server_fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (server_fd < 0) {
-        perror("Socket creation failed");
-        exit(EXIT_FAILURE);
-    }
+sa.sin_family=AF_INET;
+sa.sin_addr.s_addr=inet_addr("127.0.0.1");
+sa.sin_port=htons(6034);
 
-    server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(8080);
-    server_addr.sin_addr.s_addr = INADDR_ANY;
+i=bind(sockfd,(struct sockaddr *)&sa,sizeof(sa));
+printf("test %d%d\n",sockfd,i);
 
-    if (bind(server_fd, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
-        perror("Bind failed");
-        close(server_fd);
-        exit(EXIT_FAILURE);
-    }
+listen(sockfd,5);
 
-    if (listen(server_fd, 5) < 0) {
-        perror("Listen failed");
-        close(server_fd);
-        exit(EXIT_FAILURE);
-    }
+length=sizeof(sa);
+fd1=accept(sockfd,(struct sockaddr *)&ca,&length);
 
-    client_fd = accept(server_fd, (struct sockaddr*)&client_addr, &client_addr_len);
-    if (client_fd < 0) {
-        perror("Accept failed");
-        close(server_fd);
-        exit(EXIT_FAILURE);
-    }
+int k=recv(fd1,buf,100,0);
+buf[k]='\0';
+printf("%s\n",buf);
 
-    bytes_received = recv(client_fd, recv_buffer, sizeof(recv_buffer) - 1, 0);
-    if (bytes_received < 0) {
-        perror("Receive failed");
-        close(client_fd);
-        close(server_fd);
-        exit(EXIT_FAILURE);
-    }
-    recv_buffer[bytes_received] = '\0';
-    printf("Client: %s\n", recv_buffer);
+printf("Enter a message\t");
+gets(buf1);
+send(fd1,buf1,strlen(buf1),0);
 
-    strcpy(send_buffer, "Hello, Client!");
-    bytes_sent = send(client_fd, send_buffer, strlen(send_buffer), 0);
-    if (bytes_sent < 0) {
-        perror("Send failed");
-        close(client_fd);
-        close(server_fd);
-        exit(EXIT_FAILURE);
-    }
-    close(client_fd);
-    close(server_fd);
-    return 0;
+close(sockfd);
+close(fd1);
 }
